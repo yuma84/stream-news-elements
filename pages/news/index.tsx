@@ -1,3 +1,4 @@
+import { Box, Card, SxProps, Typography } from '@mui/material'
 import { NextPage } from 'next'
 
 type Article = {
@@ -13,16 +14,31 @@ type Props = {
 const NewsPage: NextPage<Props> = (props: Props) => {
   console.log(props.topArticles)
 
+  const TypographySx: SxProps = {
+    color: '#fff',
+    fontWeight: 900,
+    textShadow:
+      '-1px -1px 0 #222, -1px 0 0 #222, -1px 1px 0 #222, 0 -1px 0 #222, 0 1px 0 #222, 1px 1px 0 #222, 1px 0 0 #222, 1px 1px 0 #222',
+  }
+
   return (
-    <div>
+    <Box sx={{ bgcolor: 'primary.main' }}>
       {props.topArticles.map((article) => (
-        <div>
-          <p>{article.title}</p>
-          <img width={200} height={100} src={article.urlToImage} />
-          <p>{article.description}</p>
-        </div>
+        <Card sx={{ bgcolor: 'transparent' }}>
+          <Typography sx={{ ...TypographySx, fontSize: '1.5rem' }}>{article.title}</Typography>
+          <Box
+            component='img'
+            width={200}
+            height={100}
+            sx={{ objectFit: 'contain' }}
+            src={article.urlToImage}
+          />
+          <Typography sx={{ ...TypographySx, fontSize: '1.4rem' }}>
+            {article.description}
+          </Typography>
+        </Card>
       ))}
-    </div>
+    </Box>
   )
 }
 
